@@ -1,11 +1,11 @@
 import React from 'react';
+import {nanoid}  from 'nanoid';
 
 import Footer from '../Footer/Footer';
-import NewTaskForm from '../NewTaskForm/NewTaskForm';
+import Header from '../header/Header';
 import TaskList from '../TaskList/TaskList';
 import './TodoApp.css';
 
-let nextId = 4;
 
 class TodoApp extends React.Component {
   constructor() {
@@ -49,7 +49,7 @@ class TodoApp extends React.Component {
       tasks: [
         ...tasks,
         {
-          id: nextId++,
+          id: nanoid(),
           text,
           date: new Date(),
           isCompleted: false,
@@ -65,7 +65,7 @@ class TodoApp extends React.Component {
         if (task.id === id) {
           return {
             ...task,
-            [field]: value || !task[field],
+            [field]: value || (task.text === ''? task[field]:!task[field]),
           };
         }
         return { ...task };
@@ -101,10 +101,7 @@ class TodoApp extends React.Component {
     const { tasks, filter } = this.state;
     return (
       <section className="todoapp">
-        <header className="header">
-          <h1>todos</h1>
-          <NewTaskForm addTask={this.addTask} />
-        </header>
+        <Header addTask = {this.addTask}/>
         <section className="main">
           <TaskList
             tasks={tasks}
@@ -125,5 +122,7 @@ class TodoApp extends React.Component {
     );
   }
 }
+
+
 
 export default TodoApp;

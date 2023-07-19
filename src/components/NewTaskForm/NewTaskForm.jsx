@@ -19,6 +19,7 @@ class NewTaskForm extends React.Component {
     const { value } = this.state;
     const { addTask } = this.props;
     e.preventDefault();
+    if(value === '')return;
     addTask(value);
     this.setState({
       value: '',

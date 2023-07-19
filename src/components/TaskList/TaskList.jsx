@@ -1,3 +1,6 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
 import Task from '../Task/Task';
 import './TaskList.css';
 
@@ -26,5 +29,22 @@ function TaskList({ tasks, toggleTaskCompleted, toggleTaskEditMode, changeTaskTe
   ));
   return <ul className="todo-list">{tasksComponents}</ul>;
 }
+
+TaskList.propTypes = {
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      text: PropTypes.string.isRequired,
+      date: PropTypes.instanceOf(Date).isRequired,
+      isCompleted: PropTypes.bool.isRequired,
+      editMode: PropTypes.bool.isRequired,
+    })
+  ).isRequired,
+  toggleTaskCompleted: PropTypes.func.isRequired,
+  toggleTaskEditMode: PropTypes.func.isRequired,
+  changeTaskText: PropTypes.func.isRequired,
+  deleteTask: PropTypes.func.isRequired,
+  filter: PropTypes.oneOf(['All', 'Active', 'Completed']).isRequired,
+};
 
 export default TaskList;

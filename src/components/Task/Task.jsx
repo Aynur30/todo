@@ -1,5 +1,6 @@
 import { formatDistanceToNow } from 'date-fns';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Task extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class Task extends React.Component {
   }
 
   onChangeEditiValue = (e) => {
+    
     this.setState({
       editiValue: e.target.value,
     });
@@ -20,14 +22,14 @@ class Task extends React.Component {
   onBlurEditField = () => {
     const { task, toggleTaskEditMode, changeTaskText } = this.props;
     const { editiValue } = this.state;
-
+    
     toggleTaskEditMode(task.id);
     changeTaskText(task.id, editiValue);
   };
 
   onClickEdit = async () => {
     const { task, toggleTaskEditMode } = this.props;
-
+    
     await toggleTaskEditMode(task.id);
     this.editFieldRef.current.focus();
   };
@@ -35,6 +37,7 @@ class Task extends React.Component {
   render() {
     const { task, toggleTaskCompleted, deleteTask } = this.props;
     const { editiValue } = this.state;
+    const isEditButtonDisabled = editiValue.trim() === '';
 
     return (
       <>
@@ -49,12 +52,16 @@ class Task extends React.Component {
           <label htmlFor="task">
             <span className="description">{task.text}</span>
             <span className="created">
-              created
-              {formatDistanceToNow(task.date)}
-              ago
+              created {formatDistanceToNow(task.date)} ago
             </span>
           </label>
-          <button type="button" className="icon icon-edit" onClick={this.onClickEdit} aria-label="Edit" />
+          <button
+            type="button"
+            className="icon icon-edit"
+            onClick={this.onClickEdit}
+            aria-label="Edit"
+            disabled={isEditButtonDisabled} // Add the disabled attribute
+          />
           <button type="button" className="icon icon-destroy" onClick={() => deleteTask(task.id)} aria-label="Delete" />
         </div>
         <input
@@ -70,4 +77,20 @@ class Task extends React.Component {
   }
 }
 
+Task.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    text: PropTypes.string.isRequired,
+    date: PropTypes.instanceOf(Date).isRequired,
+    isCompleted: PropTypes.bool.isRequired,
+    editMode: PropTypes.bool.isRequired,
+  }).isRequired,
+  toggleTaskCompleted: PropTypes.func.isRequired,
+  deleteTask: PropTypes.func.isRequired,
+  toggleTaskEditMode: PropTypes.func.isRequired,
+};
+
 export default Task;
+
+
+
