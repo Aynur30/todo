@@ -13,8 +13,11 @@ const App = () => {
 
   const tck = useCallback(() => {
     setData((prevData) =>
-      prevData.map((el) =>
-        el.going && el.time && el.state !== 'completed' ? { ...el, time: el.time - 1 } : { ...el }
+      prevData.map((el) => 
+        //el.going && el.time && el.state !== 'completed' ? (el.prop === 'down' ? { ...el, time: el.time - 1 }: { ...el, time: el.time + 1 }) : { ...el }
+        el.state !== 'completed'&&el.going && el.prop === "down" ? { ...el, time: el.time - 1 } : 
+        el.state !== 'completed'&&el.going && el.prop === "up" ? { ...el, time: el.time + 1 }:{...el}
+      
       )
     );
   }, []);
@@ -33,6 +36,7 @@ const App = () => {
         id: uuidv4(),
         time,
         going: false,
+        prop: time === 0 ? 'up': 'down',
       },
     ]);
   const displayData = () => {
