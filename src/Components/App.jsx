@@ -14,7 +14,7 @@ const App = () => {
   const tck = useCallback(() => {
     setData((prevData) =>
       prevData.map((el) =>
-        el.going && el.time ? { ...el, time: el.time - 1 } : { ...el }
+        el.going && el.time && el.state !== 'completed' ? { ...el, time: el.time - 1 } : { ...el }
       )
     );
   }, []);
