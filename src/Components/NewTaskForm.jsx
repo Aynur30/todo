@@ -1,10 +1,28 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const NewTaskForm = ({ addTask }) => {
+const NewTaskForm = ({ addTask, editData }) => {
   const [value, setValue] = useState('');
   const [min, setMin] = useState('');
   const [sec, setSec] = useState('');
+  const [data, setData] = useState([]);
+
+
+  const inputData = (text, time)=>{
+    setData((prevData) => [
+      ...prevData,
+      {
+        text,
+        state: '',
+        created: new Date(),
+        id: uuidv4(),
+        time,
+        going: false,
+        prop: time === 0 ? 'up': 'down',
+      },
+    ]);
+    editData(data);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -12,6 +30,9 @@ const NewTaskForm = ({ addTask }) => {
     setValue('');
     setMin('');
     setSec('');
+    setData((prevData)=>{
+
+    })
     addTask(value, (+min * 60 || 0) + (+sec || 0));
   };
 

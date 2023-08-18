@@ -56,6 +56,13 @@ const App = () => {
     }
   };
 
+  const editData = (value)=>{
+    setData((prevData) => [
+      ...prevData,
+      value
+    ]);
+  }
+
 
   const tasksLeft = () =>
     data.reduce((count, el) => (!el.state ? ++count : count), 0);
@@ -102,7 +109,7 @@ const App = () => {
 
   return (
     <section className="todoapp">
-      <NewTaskForm addTask={addTask} />
+      <NewTaskForm editData={editData} addTask={addTask} />
       <section className="main">
         <Context.Provider value={taskControls}>
           <TaskList data={displayData()} />
