@@ -9,6 +9,7 @@ const TaskList = ({ d }) => {
       {data.map((task) => {
         return (
           <li className={task.state} key={task.id}>
+            <Context.Provider value={taskControls}>
             <Task
               text={task.text}
               state={task.state}
@@ -17,6 +18,7 @@ const TaskList = ({ d }) => {
               time={task.time}
               going={task.going}
             />
+            </Context.Provider>
           </li>
         );
       })}

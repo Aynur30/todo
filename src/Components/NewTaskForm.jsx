@@ -23,6 +23,18 @@ const NewTaskForm = ({ addTask, editData }) => {
     return newData;
   }
 
+  const addTask = (text, time) => {
+    setData((prevData)=>[...prevData, {
+      text,
+      state: '',
+      created: new Date(),
+      id: uuidv4(),
+      time,
+      going: false,
+      prop: time === 0 ? 'up': 'down',
+    }]);
+  }
+
   const inputData = (text, time)=>{
     setData((prevData) => [
       ...prevData,
@@ -36,7 +48,7 @@ const NewTaskForm = ({ addTask, editData }) => {
         prop: time === 0 ? 'up': 'down',
       },
     ]);
-    editData(data);
+
   }
 
   const handleSubmit = (event) => {
@@ -45,9 +57,6 @@ const NewTaskForm = ({ addTask, editData }) => {
     setValue('');
     setMin('');
     setSec('');
-    setData((prevData)=>{
-
-    })
     addTask(value, (+min * 60 || 0) + (+sec || 0));
   };
 

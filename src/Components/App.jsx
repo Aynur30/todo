@@ -10,11 +10,11 @@ import { v4 as uuidv4 } from 'uuid';
 const App = () => {
   const [data, setData] = useState([]);
   const [currentFilter, setcurrentFilter] = useState('All');
+  let data = [];
 
   const tck = useCallback(() => {
     setData((prevData) =>
       prevData.map((el) => 
-        //el.going && el.time && el.state !== 'completed' ? (el.prop === 'down' ? { ...el, time: el.time - 1 }: { ...el, time: el.time + 1 }) : { ...el }
         el.state !== 'completed'&&el.going && el.prop === "down" ? { ...el, time: el.time - 1 } : 
         el.state !== 'completed'&&el.going && el.prop === "up" ? { ...el, time: el.time + 1 }:{...el}
       
@@ -112,18 +112,16 @@ const App = () => {
   }, [currentFilter]);
 
   return (
-    <Context.Provider value={taskControls, data}>
+    <Context.Provider value={data}>
     <section className="todoapp">
       <NewTaskForm />
       <NewTaskForm editData={editData} addTask={addTask} />
       <section className="main">
           <TaskList />
-        <Context.Provider value={filterControls}>
           <Footer
             tasksLeft={tasksLeft()}
             clearCompletedTasks={clearCompletedTasks}
           />
-        </Context.Provider>
       </section>
     </section>
     </Context.Provider>
