@@ -8,7 +8,7 @@ const NewTaskForm = ({ addTask }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!value) return;
+    if (!value.trim()) return;
     setValue('');
     setMin('');
     setSec('');
@@ -28,6 +28,7 @@ const NewTaskForm = ({ addTask }) => {
         />
         <input
           className="new-todo-form__timer"
+          type="number"
           placeholder="Min"
           value={min}
           onChange={(e) => setMin(e.target.value)}
@@ -35,6 +36,7 @@ const NewTaskForm = ({ addTask }) => {
         <input
           className="new-todo-form__timer"
           placeholder="Sec"
+          type="number"
           value={sec}
           onChange={(e) => setSec(e.target.value)}
         />

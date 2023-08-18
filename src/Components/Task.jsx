@@ -7,6 +7,8 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 const Task = ({ text, state, created, id, time }) => {
   const [createdTime, setCreatedTime] = useState('');
+
+  
   const tick = () =>
     setCreatedTime(
       formatDistanceToNow(created, {
@@ -14,10 +16,15 @@ const Task = ({ text, state, created, id, time }) => {
       })
     );
   useEffect(tick);
+
+
   useEffect(() => {
     const timerID = setInterval(() => tick(), 5000);
     return () => clearInterval(timerID);
   });
+
+
+
   const { switchTaskState, switchTaskTimer, deleteTask } = useContext(Context);
   return (
     <div className="view">

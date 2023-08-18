@@ -21,6 +21,8 @@ const App = () => {
       )
     );
   }, []);
+
+  
   useEffect(() => {
     const timerID = setInterval(() => tck(), 1000);
     return () => clearInterval(timerID);
@@ -39,6 +41,8 @@ const App = () => {
         prop: time === 0 ? 'up': 'down',
       },
     ]);
+
+
   const displayData = () => {
     switch (currentFilter) {
       case 'All':
@@ -51,8 +55,12 @@ const App = () => {
         return data;
     }
   };
+
+
   const tasksLeft = () =>
     data.reduce((count, el) => (!el.state ? ++count : count), 0);
+
+
   const clearCompletedTasks = () =>
     setData((prevData) =>
       prevData.filter((element) => element.state !== 'completed')
@@ -64,12 +72,18 @@ const App = () => {
         el.id === id ? { ...el, state: el.state ? '' : 'completed' } : { ...el }
       )
     );
+
+
   const switchTaskTimer = (id, state) =>
     setData((prevData) =>
       prevData.map((el) => (el.id === id ? { ...el, going: state } : { ...el }))
     );
+
+
   const deleteTask = (id) =>
     setData((prevData) => prevData.filter((el) => el.id !== id));
+
+
   const toggleTasksFilter = (filter) => setcurrentFilter(filter);
 
   const taskControls = useMemo(() => {
@@ -79,6 +93,9 @@ const App = () => {
       deleteTask,
     };
   }, []);
+
+
+
   const filterControls = useMemo(() => {
     return { toggleTasksFilter, currentFilter };
   }, [currentFilter]);
