@@ -1,7 +1,9 @@
 import React from 'react';
 import Task from './Task';
 
-const TaskList = ({ data }) => {
+const TaskList = ({ d }) => {
+
+  const { data} = useContext(Context);
   return (
     <ul className="todo-list">
       {data.map((task) => {

@@ -22,6 +22,8 @@ const App = () => {
     );
   }, []);
 
+
+
   
   useEffect(() => {
     const timerID = setInterval(() => tck(), 1000);
@@ -55,6 +57,8 @@ const App = () => {
         return data;
     }
   };
+
+
 
   const editData = (value)=>{
     setData((prevData) => [
@@ -108,12 +112,12 @@ const App = () => {
   }, [currentFilter]);
 
   return (
+    <Context.Provider value={taskControls, data}>
     <section className="todoapp">
+      <NewTaskForm />
       <NewTaskForm editData={editData} addTask={addTask} />
       <section className="main">
-        <Context.Provider value={taskControls}>
-          <TaskList data={displayData()} />
-        </Context.Provider>
+          <TaskList />
         <Context.Provider value={filterControls}>
           <Footer
             tasksLeft={tasksLeft()}
@@ -122,6 +126,7 @@ const App = () => {
         </Context.Provider>
       </section>
     </section>
+    </Context.Provider>
   );
 };
 
