@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 
-import Context from './Сontext';
+import MainContext from './Сontext';
 
 import TasksFilterButton from './TasksFilterButton';
 
 const TasksFilter = () => {
-  const { currentFilter } = useContext(Context);
+  const { currentFilter } = useContext(MainContext);
   return (
     <ul className="filters">
       <li>

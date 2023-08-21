@@ -1,24 +1,25 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Task from './Task';
+import MainContext from './Сontext'
 
-const TaskList = ({ d }) => {
+const TaskList = ({value}) => {
 
-  const { data} = useContext(Context);
+  const { taskControls} = useContext(MainContext);
   return (
     <ul className="todo-list">
-      {data.map((task) => {
+      {value.map((task) => {
         return (
           <li className={task.state} key={task.id}>
-            <Context.Provider value={taskControls}>
-            <Task
-              text={task.text}
-              state={task.state}
-              created={task.created}
-              id={task.id}
-              time={task.time}
-              going={task.going}
-            />
-            </Context.Provider>
+            <MainContext.Provider value={taskControls}>
+              <Task
+                text={task.text}
+                state={task.state}
+                created={task.created}
+                id={task.id}
+                time={task.time}
+                going={task.going}
+              />
+            </MainContext.Provider>
           </li>
         );
       })}

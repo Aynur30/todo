@@ -1,31 +1,27 @@
 import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import Context from './Сontext';
+import MainContext from './Сontext';
 
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 const Task = ({ text, state, created, id, time }) => {
   const [createdTime, setCreatedTime] = useState('');
+  const { switchTaskState, switchTaskTimer, deleteTask } = useContext(MainContext);
 
-  
   const tick = () =>
     setCreatedTime(
       formatDistanceToNow(created, {
         includeSeconds: true,
       })
     );
+
   useEffect(tick);
-
-
   useEffect(() => {
     const timerID = setInterval(() => tick(), 5000);
     return () => clearInterval(timerID);
   });
 
-
-
-  const { switchTaskState, switchTaskTimer, deleteTask } = useContext(Context);
   return (
     <div className="view">
       <input

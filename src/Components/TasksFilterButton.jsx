@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 
 import PropTypes from 'prop-types';
-import Context from './Сontext';
+import MainContext from './Сontext';
 
 const TasksFilterButton = ({ value, className }) => {
-  const { toggleTasksFilter } = useContext(Context);
+  const { toggleTasksFilter } = useContext(MainContext);
   return (
     <label htmlFor={value} className={className}>
       <input

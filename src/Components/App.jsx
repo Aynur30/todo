@@ -3,15 +3,14 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import NewTaskForm from './NewTaskForm';
 import TaskList from './TaskList';
 import Footer from './Footer';
-import Context from './Сontext';
+import MainContext from './Сontext';
 import { v4 as uuidv4 } from 'uuid';
 
 
 const App = () => {
   const [data, setData] = useState([]);
   const [currentFilter, setcurrentFilter] = useState('All');
-  let data = [];
-
+ 
   const tck = useCallback(() => {
     setData((prevData) =>
       prevData.map((el) => 
@@ -22,9 +21,6 @@ const App = () => {
     );
   }, []);
 
-
-
-  
   useEffect(() => {
     const timerID = setInterval(() => tck(), 1000);
     return () => clearInterval(timerID);
@@ -44,7 +40,6 @@ const App = () => {
       },
     ]);
 
-
   const displayData = () => {
     switch (currentFilter) {
       case 'All':
@@ -58,19 +53,8 @@ const App = () => {
     }
   };
 
-
-
-  const editData = (value)=>{
-    setData((prevData) => [
-      ...prevData,
-      value
-    ]);
-  }
-
-
   const tasksLeft = () =>
     data.reduce((count, el) => (!el.state ? ++count : count), 0);
-
 
   const clearCompletedTasks = () =>
     setData((prevData) =>
@@ -84,16 +68,13 @@ const App = () => {
       )
     );
 
-
   const switchTaskTimer = (id, state) =>
     setData((prevData) =>
       prevData.map((el) => (el.id === id ? { ...el, going: state } : { ...el }))
     );
 
-
   const deleteTask = (id) =>
     setData((prevData) => prevData.filter((el) => el.id !== id));
-
 
   const toggleTasksFilter = (filter) => setcurrentFilter(filter);
 
@@ -105,26 +86,23 @@ const App = () => {
     };
   }, []);
 
-
-
   const filterControls = useMemo(() => {
     return { toggleTasksFilter, currentFilter };
   }, [currentFilter]);
 
   return (
-    <Context.Provider value={data}>
+    <MainContext.Provider value={{taskControls, filterControls}}>
     <section className="todoapp">
-      <NewTaskForm />
-      <NewTaskForm editData={editData} addTask={addTask} />
+      <NewTaskForm addTask={addTask} />
       <section className="main">
-          <TaskList />
+          <TaskList value={displayData()}/>
           <Footer
             tasksLeft={tasksLeft()}
             clearCompletedTasks={clearCompletedTasks}
           />
       </section>
     </section>
-    </Context.Provider>
+    </MainContext.Provider>
   );
 };
 
