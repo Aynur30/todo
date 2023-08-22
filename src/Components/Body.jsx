@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback} from 'react';
 
 import NewTaskForm from './NewTaskForm';
 import TaskList from './TaskList';
@@ -77,17 +77,6 @@ const Body = () =>{
 
     const toggleTasksFilter = (filter) => setcurrentFilter(filter);
 
-    const taskControls = useMemo(() => {
-    return {
-    switchTaskState,
-    switchTaskTimer,
-    deleteTask,
-    };
-    }, []);
-
-    const filterControls = useMemo(() => {
-    return { toggleTasksFilter, currentFilter };
-    }, [currentFilter]);
 
     return (
         <>
