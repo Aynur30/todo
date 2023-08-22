@@ -16,7 +16,6 @@ const Body = () =>{
     prevData.map((el) => 
         el.state !== 'completed'&&el.going && el.prop === "down" ? { ...el, time: el.time - 1 } : 
         el.state !== 'completed'&&el.going && el.prop === "up" ? { ...el, time: el.time + 1 }:{...el}
-
     )
     );
     }, []);
@@ -92,14 +91,14 @@ const Body = () =>{
 
     return (
         <>
-            <MainContext.Provider value={{taskControls, filterControls}}>
+            <MainContext.Provider value={{switchTaskState, switchTaskTimer, deleteTask, toggleTasksFilter, currentFilter}}>
                 <NewTaskForm addTask={addTask} />
                 <section className="main">
-                <TaskList value={displayData()}/>
-                <Footer
-                    tasksLeft={tasksLeft()}
-                    clearCompletedTasks={clearCompletedTasks}
-                />
+                    <TaskList value={displayData()}/>
+                    <Footer
+                        tasksLeft={tasksLeft()}
+                        clearCompletedTasks={clearCompletedTasks}
+                    />
                 </section>
             </MainContext.Provider>
         </>

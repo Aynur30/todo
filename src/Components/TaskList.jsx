@@ -10,7 +10,6 @@ const TaskList = ({value}) => {
       {value.map((task) => {
         return (
           <li className={task.state} key={task.id}>
-            <MainContext.Provider value={taskControls}>
               <Task
                 text={task.text}
                 state={task.state}
@@ -19,7 +18,6 @@ const TaskList = ({value}) => {
                 time={task.time}
                 going={task.going}
               />
-            </MainContext.Provider>
           </li>
         );
       })}

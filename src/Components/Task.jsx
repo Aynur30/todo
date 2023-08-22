@@ -7,7 +7,7 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 const Task = ({ text, state, created, id, time }) => {
   const [createdTime, setCreatedTime] = useState('');
-  const { switchTaskState, switchTaskTimer, deleteTask } = useContext(MainContext);
+  const {switchTaskState, switchTaskTimer, deleteTask} = useContext(MainContext);
 
   const tick = () =>
     setCreatedTime(
